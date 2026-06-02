@@ -1,38 +1,64 @@
-.App {
-  text-align: center;
+ 
+
+        .topbar{
+            background-color:#B21C1C;
+        }
+
+       .hero-section{
+    background-image:url("image/background girl home page.png");
+    background-size:cover;
+    background-position:center;
+    height:450px;
+    width: 1400px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    border-radius:20px;
+    position:relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.hero-content{
+    position:absolute;
+    left:180px;
+    top:70px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.hero-content h1{
+    font-size:65px;
+    margin:0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.hero-content h3{
+    font-size:35px;
 }
 
-.App-link {
-  color: #61dafb;
+.hero-content p{
+    color:#555;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+        .category-card{
+            border:1px solid #ddd;
+            border-radius:12px;
+            padding:20px;
+            display:flex;
+            align-items:center;
+            gap:15px;
+            background:white;
+        }
+
+        .category-card img{
+            width:80px;
+            height:80px;
+            border-radius:50%;
+            object-fit:cover;
+        }
+
+        .category-card p{
+            margin:0;
+            color:gray;
+        }
+
+        .product-img{
+            border-radius:10px;
+        }
+
+   
