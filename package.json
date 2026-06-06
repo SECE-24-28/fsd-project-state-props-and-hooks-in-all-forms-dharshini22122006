@@ -13,13 +13,17 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.17.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.5.1",
     "react": "^19.2.6",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.6",
     "react-is": "^18.3.1",
     "react-router-dom": "^7.16.0",
     "react-scripts": "5.0.1",
+    "recharts": "^3.8.1",
     "styled-components": "^6.4.2",
     "web-vitals": "^2.1.4"
   },
@@ -51,5 +55,17 @@
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.15",
     "tailwindcss": "^3.4.19"
+  },
+  "description": "Fab Fit React Project",
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SECE-24-28/fsd-project-state-props-and-hooks-in-all-forms-dharshini22122006.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SECE-24-28/fsd-project-state-props-and-hooks-in-all-forms-dharshini22122006/issues"
   }
 }

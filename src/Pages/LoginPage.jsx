@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./LoginPage.css";
 import { Link } from "react-router-dom";
 
+
 function LoginPage() {
 
   const [email, setEmail] = useState("");
@@ -157,9 +158,12 @@ function LoginPage() {
 
         <div className="forgot">
 
-          <a href="/">
-            Forgot Password?
-          </a>
+          <Link
+  to="/forgot-password"
+  className="forgot-link"
+>
+  Forgot Password?
+</Link>
 
         </div>
 

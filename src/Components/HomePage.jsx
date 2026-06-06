@@ -2,14 +2,14 @@ import React from "react";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
 
-import heroBg from "../Assets/Css/Images/backgroundgirlhomepage.png";
-import womenImg from "../Assets/Css/Images/women.png";
-import menImg from "../Assets/Css/Images/men.png";
-import kidImg from "../Assets/Css/Images/kid.png";
-import menImg1 from "../Assets/Css/Images/men_6.jpeg";
-import womenImg1 from "../Assets/Css/Images/women_2.jpg";
-import womenImg2 from "../Assets/Css/Images/women_7.jpg";
-import kidImg1 from "../Assets/Css/Images/kid_1.png";
+import heroBg from "../Assets/Images/backgroundgirlhomepage.png";
+import womenImg from "../Assets/Images/women.png";
+import menImg from "../Assets/Images/men.png";
+import kidImg from "../Assets/Images/kid.png";
+import menImg1 from "../Assets/Images/men_6.jpeg";
+import womenImg1 from "../Assets/Images/women_2.jpg";
+import womenImg2 from "../Assets/Images/women_7.jpg";
+import kidImg1 from "../Assets/Images/kid_1.png";
 
 function HomePage() {
   return (
@@ -18,9 +18,9 @@ function HomePage() {
 
       <nav className="navbar-custom">
 
-        <div className="logo" >
-          <span color="white" italic>Fab Fit</span>
-        </div>
+        <div className="logo">
+  Fab Fit
+</div>
 
         <ul className="nav-menu">
           <li>Home</li>
@@ -37,35 +37,32 @@ function HomePage() {
     className="search-box"
   />
 
-  <i className="bi bi-search search-icon"></i>
+  <i className=" bi-search search-icon"></i>
 
 </div>
-        <div className="d-flex gap-4">
+      <div className="nav-icons">
 
-  <a href="#" className="text-white text-decoration-none">
-    <i className="bi bi-heart"></i>
-    <span className="ms-1">Wishlist</span>
+  <a href="#" className="nav-icon-link">
+    <i className="bi-heart"></i>
+    <span>Wishlist</span>
   </a>
 
-  <a href="#" className="text-white text-decoration-none">
-    <i className="bi bi-bag"></i>
-    <span className="ms-1">Orders</span>
+  <a href="#" className="nav-icon-link">
+    <i className="bi-bag"></i>
+    <span>Orders</span>
   </a>
 
-  <a href="#" className="text-white text-decoration-none">
-  <i className="bi bi-cart"></i>
-  <span className="ms-1">Cart</span>
-</a>
+  <a href="#" className="nav-icon-link">
+    <i className=" bi-cart"></i>
+    <span>Cart</span>
+  </a>
 
-<Link to="/login">
-  <button className="login-btn">
-    Login
-  </button>
-</Link>
+  <Link to="/login">
+    <button className="login-btn">
+      Login
+    </button>
+  </Link>
 
-<a href="#" className="text-white text-decoration-none">
-  <i className="bi bi-person-circle"></i>
-</a>
 </div>
 
       </nav>
