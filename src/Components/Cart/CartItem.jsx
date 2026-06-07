@@ -9,7 +9,19 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-function CartItem({ item }) {
+function CartItem({ item = {} }) {
+  const {
+    image = "https://via.placeholder.com/120",
+    name = "Product",
+    size = "-",
+    color = "-",
+    price = 0,
+    oldPrice = 0,
+    quantity = 0,
+  } = item;
+
+  const total = price * quantity;
+
   return (
     <Box
       sx={{
@@ -30,8 +42,8 @@ function CartItem({ item }) {
         }}
       >
         <img
-          src={item.image}
-          alt={item.name}
+          src={image}
+          alt={name}
           style={{
             width: 120,
             height: 120,
@@ -45,11 +57,11 @@ function CartItem({ item }) {
             fontWeight={700}
             fontSize={20}
           >
-            {item.name}
+            {name}
           </Typography>
 
           <Typography color="text.secondary">
-            Size: {item.size} | Color: {item.color}
+            Size: {size} | Color: {color}
           </Typography>
 
           <Typography color="green">
@@ -60,7 +72,7 @@ function CartItem({ item }) {
 
       <Box>
         <Typography fontWeight="bold">
-          ₹{item.price}
+          ₹{price}
         </Typography>
 
         <Typography
@@ -69,7 +81,7 @@ function CartItem({ item }) {
             color: "gray",
           }}
         >
-          ₹{item.oldPrice}
+          ₹{oldPrice}
         </Typography>
       </Box>
 
@@ -89,7 +101,7 @@ function CartItem({ item }) {
         </IconButton>
 
         <Typography>
-          {item.quantity}
+          {quantity}
         </Typography>
 
         <IconButton size="small">
@@ -98,7 +110,7 @@ function CartItem({ item }) {
       </Box>
 
       <Typography fontWeight="bold">
-        ₹{item.price}
+        ₹{total}
       </Typography>
 
       <IconButton color="error">

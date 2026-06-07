@@ -1,11 +1,20 @@
-import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./Routers/AppRoutes";
+
+import { WishlistProvider } from "./Context/WishlistContext";
+import { CartProvider } from "./Context/CartContext";
+import { ToastProvider } from "./Context/ToastContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <AppRoutes />
+      <ToastProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <AppRoutes />
+          </CartProvider>
+        </WishlistProvider>
+      </ToastProvider>
     </BrowserRouter>
   );
 }

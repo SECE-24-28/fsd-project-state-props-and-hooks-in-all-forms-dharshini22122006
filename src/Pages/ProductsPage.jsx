@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -6,16 +6,51 @@ import {
   Button,
   Select,
   MenuItem,
+  TextField,
 } from "@mui/material";
 
 import ProductNavbar from "../Components/ProductNavbar";
 import ProductFooter from "../Components/ProductFooter";
 import ProductCard from "../Components/ProductCard";
 
-import products from "../Data/products";
 import heroBg from "../Assets/Images/bgboygirlpropage.png";
+import { useLocation } from "react-router-dom";
+import localProducts from "../Data/products";
+
+const categories = ["All", "Men", "Women", "Kids"];
 
 function ProductsPage() {
+  const productsList = localProducts;
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("All");
+  const [sortBy, setSortBy] = useState("Popularity");
+  const location = useLocation();
+
+  // Sync query with URL
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchQuery = params.get("search");
+    setQuery(searchQuery || "");
+  }, [location.search]);
+
+
+
+  const visibleProducts = useMemo(() => {
+    return productsList
+      .filter((product) => {
+        const matchesCategory =
+          category === "All" || product.category === category;
+        const matchesSearch = product.name
+          .toLowerCase()
+          .includes(query.toLowerCase());
+        return matchesCategory && matchesSearch;
+      })
+      .sort((a, b) => {
+        if (sortBy === "Low") return a.price - b.price;
+        if (sortBy === "High") return b.price - a.price;
+        return b.rating - a.rating;
+      });
+  }, [productsList, category, query, sortBy]);
   return (
     <>
       <ProductNavbar />
@@ -46,11 +81,7 @@ function ProductsPage() {
               Explore The Latest Collection
             </Typography>
 
-            <Typography
-              variant="h3"
-              fontWeight="bold"
-              mt={2}
-            >
+            <Typography variant="h3" fontWeight="bold" mt={2}>
               Trendy Styles For
               <br />
               Every Occasion
@@ -76,16 +107,7 @@ function ProductsPage() {
       {/* Breadcrumb */}
       <Container maxWidth={false} sx={{ mt: 3 }}>
         <Typography color="gray">
-          Home &gt;
-          <span
-            style={{
-              color: "#dc2626",
-              fontWeight: 600,
-              marginLeft: "10px",
-            }}
-          >
-            Products
-          </span>
+          Home &gt; <span style={{ color: "#dc2626", fontWeight: 600, marginLeft: "10px" }}>Products</span>
         </Typography>
       </Container>
 
@@ -98,28 +120,29 @@ function ProductsPage() {
             mb: 3,
           }}
         >
-          <Typography
-            variant="h3"
-            fontWeight="bold"
-          >
+          <Typography variant="h3" fontWeight="bold">
             All Products
           </Typography>
 
+
+          <TextField
+            size="small"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search products"
+            sx={{ minWidth: 240 }}
+          />
           <Select
             defaultValue="Popularity"
             size="small"
+            value={sortBy}
+            onChange={(event) => setSortBy(event.target.value)}
           >
-            <MenuItem value="Popularity">
-              Popularity
-            </MenuItem>
+            <MenuItem value="Popularity">Popularity</MenuItem>
 
-            <MenuItem value="Low">
-              Price Low to High
-            </MenuItem>
+            <MenuItem value="Low">Price Low to High</MenuItem>
 
-            <MenuItem value="High">
-              Price High to Low
-            </MenuItem>
+            <MenuItem value="High">Price High to Low</MenuItem>
           </Select>
         </Box>
 
@@ -132,26 +155,18 @@ function ProductsPage() {
             flexWrap: "wrap",
           }}
         >
-          <Button
-            variant="contained"
-            color="error"
-          >
-            All
-          </Button>
+          {categories.map((group) => (
+            <Button
+              key={group}
+              variant={category === group ? "contained" : "outlined"}
+              color={category === group ? "error" : "inherit"}
+              onClick={() => setCategory(group)}
+            >
+              {group}
+            </Button>
+          ))}
 
-          <Button variant="outlined">
-            Men
-          </Button>
-
-          <Button variant="outlined">
-            Women
-          </Button>
-
-          <Button variant="outlined">
-            Kids
-          </Button>
-
-          <Button variant="outlined">
+          <Button variant="outlined" disabled sx={{ cursor: "default", opacity: 0.5 }}>
             Shirts
           </Button>
         </Box>
@@ -164,11 +179,8 @@ function ProductsPage() {
             gap: "30px",
           }}
         >
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
+          {visibleProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </Box>
       </Container>

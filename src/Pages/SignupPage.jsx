@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useToast } from "../Context/ToastContext";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 function SignupPage() {
+  const navigate = useNavigate();
+  const { showToast } = useToast();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [errors, setErrors] = useState({
     firstNameError: "",
@@ -18,9 +26,7 @@ function SignupPage() {
   });
 
   const signupUser = () => {
-
     let valid = true;
-
     let newErrors = {
       firstNameError: "",
       lastNameError: "",
@@ -39,14 +45,12 @@ function SignupPage() {
       valid = false;
     }
 
-    const emailRegex =
-      /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
     if (email.trim() === "") {
       newErrors.emailError = "Email required";
       valid = false;
-    }
-    else if (!emailRegex.test(email)) {
+    } else if (!emailRegex.test(email)) {
       newErrors.emailError = "Enter valid Gmail";
       valid = false;
     }
@@ -54,8 +58,7 @@ function SignupPage() {
     if (password.trim() === "") {
       newErrors.passwordError = "Password required";
       valid = false;
-    }
-    else if (password.length < 6) {
+    } else if (password.length < 6) {
       newErrors.passwordError = "Min 6 characters";
       valid = false;
     }
@@ -63,8 +66,7 @@ function SignupPage() {
     if (confirmPassword.trim() === "") {
       newErrors.confirmPasswordError = "Confirm password";
       valid = false;
-    }
-    else if (password !== confirmPassword) {
+    } else if (password !== confirmPassword) {
       newErrors.confirmPasswordError = "Passwords do not match";
       valid = false;
     }
@@ -73,36 +75,22 @@ function SignupPage() {
 
     if (!valid) return;
 
-    localStorage.setItem("firstName", firstName);
-    localStorage.setItem("lastName", lastName);
-    localStorage.setItem("userEmail", email);
-    localStorage.setItem("userPassword", password);
-    localStorage.setItem("isRegistered", "true");
-
-    sessionStorage.setItem("sessionUser", firstName);
-    sessionStorage.setItem("sessionEmail", email);
-    sessionStorage.setItem("sessionStatus", "active");
-
-    let signupHistory =
-      JSON.parse(
-        localStorage.getItem("signupHistory")
-      ) || [];
-
-    signupHistory.push({
-      firstName,
-      lastName,
+    axios.post("http://localhost:5000/api/user/signup", {
+      firstname: firstName,
+      lastname: lastName,
       email,
-      signupTime: new Date().toLocaleString()
+      password
+    })
+    .then(res => {
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.data));
+      localStorage.setItem("isLoggedIn", "true");
+      showToast("Account created successfully! Welcome to Fab Fit.", "success");
+      navigate("/");
+    })
+    .catch(err => {
+      showToast(err.response?.data?.message || "Signup failed!", "error");
     });
-
-    localStorage.setItem(
-      "signupHistory",
-      JSON.stringify(signupHistory)
-    );
-
-    alert("Signup Successful!");
-
-    console.log(signupHistory);
   };
 
   return (
@@ -191,15 +179,23 @@ function SignupPage() {
             Password
           </label>
 
-          <input
-            type="password"
-            placeholder="Create password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-            className="w-full border border-gray-300 rounded-xl px-4 py-2 outline-none focus:border-red-500"
-          />
+          <div className="relative flex items-center">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Create password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              className="w-full border border-gray-300 rounded-xl pl-4 pr-12 py-2 outline-none focus:border-red-500"
+            />
+            <span
+              className="absolute right-4 cursor-pointer text-gray-500 hover:text-gray-700 flex items-center"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </span>
+          </div>
 
           <p className="text-red-500 text-xs h-4">
             {errors.passwordError}
@@ -213,15 +209,23 @@ function SignupPage() {
             Confirm Password
           </label>
 
-          <input
-            type="password"
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) =>
-              setConfirmPassword(e.target.value)
-            }
-            className="w-full border border-gray-300 rounded-xl px-4 py-2 outline-none focus:border-red-500"
-          />
+          <div className="relative flex items-center">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) =>
+                setConfirmPassword(e.target.value)
+              }
+              className="w-full border border-gray-300 rounded-xl pl-4 pr-12 py-2 outline-none focus:border-red-500"
+            />
+            <span
+              className="absolute right-4 cursor-pointer text-gray-500 hover:text-gray-700 flex items-center"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+            </span>
+          </div>
 
           <p className="text-red-500 text-xs h-4">
             {errors.confirmPasswordError}

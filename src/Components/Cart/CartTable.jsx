@@ -10,7 +10,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import CartItem from "./CartItem";
 
-function CartTable({ items }) {
+function CartTable({ items = [] }) {
+  const safeItems = Array.isArray(items) ? items : [];
+
   return (
     <Paper
       elevation={0}
@@ -50,12 +52,20 @@ function CartTable({ items }) {
       </Box>
 
       {/* Products */}
-      {items.map((item) => (
-        <CartItem
-          key={item.id}
-          item={item}
-        />
-      ))}
+      {safeItems.length > 0 ? (
+        safeItems.map((item) => (
+          <CartItem
+            key={item.id}
+            item={item}
+          />
+        ))
+      ) : (
+        <Box sx={{ p: 3 }}>
+          <Typography color="text.secondary">
+            Your cart is currently empty.
+          </Typography>
+        </Box>
+      )}
 
       {/* Footer */}
       <Box

@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600;1,700&family=Poppins:wght@400;500;600;700&display=swap');
+
 body{
     margin:0;
     background:#f8f0f2;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Poppins', Arial, Helvetica, sans-serif;
 }
 
 /* Navbar */
@@ -115,35 +117,77 @@ body{
     background-size:cover;
     background-position:center;
     position:relative;
+    display:flex;
+    align-items:center;
 }
 
 .hero-content{
     position:absolute;
-    left:80px;
-    top:50px;
+    left:100px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
 }
 
 .hero-content h6{
-    color:#dc3545;
-}
-
-.hero-content h1{
-    color:#dc3545;
-    font-size:80px;
+    color:#c1121f;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
     margin:0;
 }
 
+.hero-content h2{
+    color:#2b2d42;
+    font-size:42px;
+    font-weight:700;
+    letter-spacing:-0.5px;
+    margin:0;
+    line-height:1.1;
+}
+
+.hero-content h1{
+    color:#c1121f;
+    font-size:72px;
+    font-weight:800;
+    letter-spacing:-1px;
+    margin:0;
+    line-height:0.95;
+    text-transform:uppercase;
+}
+
 .hero-content h3{
-    font-size:45px;
+    color:#2b2d42;
+    font-family:'Playfair Display', Georgia, serif;
+    font-size:44px;
     font-style:italic;
+    font-weight:600;
+    margin:0;
+    line-height:1.2;
+}
+
+.hero-content p{
+    color:#555;
+    font-size:16px;
+    margin:4px 0 14px 0;
 }
 
 .hero-content button{
-    background:#dc3545;
+    background:#c1121f;
     color:white;
     border:none;
-    padding:12px 25px;
-    border-radius:8px;
+    padding:10px 24px;
+    border-radius:6px;
+    font-weight:600;
+    font-size:14px;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition: background-color 0.2s ease;
+}
+
+.hero-content button:hover{
+    background:#780000;
 }
 
 /* Section */

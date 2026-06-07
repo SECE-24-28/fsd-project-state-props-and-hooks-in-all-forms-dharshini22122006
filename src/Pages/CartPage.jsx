@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
 
 import ProductNavbar from "../Components/ProductNavbar";
 import ProductFooter from "../Components/ProductFooter";
@@ -14,9 +15,11 @@ import ProductFooter from "../Components/ProductFooter";
 import CartTable from "../Components/Cart/CartTable";
 import OrderSummary from "../Components/Cart/OrderSummary";
 
-import cartData from "../Data/cartData";
+import { useCart } from "../Context/CartContext";
 
 function CartPage() {
+  const { cart, count } = useCart();
+  const navigate = useNavigate();
   return (
     <>
       <ProductNavbar />
@@ -47,7 +50,7 @@ function CartPage() {
               marginLeft: "10px",
             }}
           >
-            (2 Items)
+            ({count} Items)
           </span>
         </Typography>
 
@@ -59,6 +62,7 @@ function CartPage() {
           <Button
             startIcon={<ArrowBackIcon />}
             variant="contained"
+            onClick={() => navigate("/products")}
             sx={{
               bgcolor: "#dc2626",
             }}
@@ -76,7 +80,7 @@ function CartPage() {
           }}
         >
           <CartTable
-            items={cartData}
+            items={cart}
           />
 
           <OrderSummary />
