@@ -9,9 +9,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 
 import CartItem from "./CartItem";
+import { useCart } from "../../Context/CartContext";
 
 function CartTable({ items = [] }) {
   const safeItems = Array.isArray(items) ? items : [];
+  const { clearCart } = useCart();
 
   return (
     <Paper
@@ -76,6 +78,7 @@ function CartTable({ items = [] }) {
         <Button
           startIcon={<DeleteIcon  />}
           color="error"
+          onClick={clearCart}
         >
           Clear Cart
         </Button>

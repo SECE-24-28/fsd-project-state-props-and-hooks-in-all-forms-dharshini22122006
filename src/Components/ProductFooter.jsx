@@ -7,16 +7,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const footerLinkStyle = {
-  color: "#fff",
-  textDecoration: "none",
-  display: "block",
-  marginBottom: "8px",
-  opacity: 0.85,
-  transition: "opacity 0.2s",
-  "&:hover": { opacity: 1, textDecoration: "underline" },
-};
-
 function ProductFooter() {
   return (
     <Box

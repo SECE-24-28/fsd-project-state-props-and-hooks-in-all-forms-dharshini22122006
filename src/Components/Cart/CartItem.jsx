@@ -8,8 +8,10 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useCart } from "../../Context/CartContext";
 
 function CartItem({ item = {} }) {
+  const { updateQuantity, removeFromCart } = useCart();
   const {
     image = "https://via.placeholder.com/120",
     name = "Product",
@@ -96,7 +98,7 @@ function CartItem({ item = {} }) {
           px: 1,
         }}
       >
-        <IconButton size="small">
+        <IconButton size="small" onClick={() => updateQuantity(item.id, quantity - 1)}>
           <RemoveIcon />
         </IconButton>
 
@@ -104,7 +106,7 @@ function CartItem({ item = {} }) {
           {quantity}
         </Typography>
 
-        <IconButton size="small">
+        <IconButton size="small" onClick={() => updateQuantity(item.id, quantity + 1)}>
           <AddIcon />
         </IconButton>
       </Box>
@@ -113,7 +115,7 @@ function CartItem({ item = {} }) {
         ₹{total}
       </Typography>
 
-      <IconButton color="error">
+      <IconButton color="error" onClick={() => removeFromCart(item.id)}>
         <DeleteIcon />
       </IconButton>
     </Box>

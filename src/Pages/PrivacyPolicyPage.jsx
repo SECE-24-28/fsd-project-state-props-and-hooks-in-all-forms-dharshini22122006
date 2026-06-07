@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Typography, Box, Grid, Paper, Divider } from "@mui/material";
+import { Container, Typography, Box, Grid, Paper } from "@mui/material";
 import ProductNavbar from "../Components/ProductNavbar";
 import ProductFooter from "../Components/ProductFooter";
 

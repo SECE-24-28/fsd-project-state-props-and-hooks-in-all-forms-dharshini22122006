@@ -51,8 +51,15 @@ function LoginPage() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.data));
       localStorage.setItem("isLoggedIn", "true");
-      showToast("Logged in successfully! Welcome to Fab Fit.", "success");
-      navigate("/");
+      localStorage.setItem("isAdmin", res.data.data.isAdmin ? "true" : "false");
+
+      if (res.data.data.isAdmin) {
+        showToast("Welcome back, Admin! 👋", "success");
+        navigate("/admin");
+      } else {
+        showToast("Logged in successfully! Welcome to Fab Fit.", "success");
+        navigate("/");
+      }
     })
     .catch(err => {
       showToast(err.response?.data?.message || "Login failed!", "error");
