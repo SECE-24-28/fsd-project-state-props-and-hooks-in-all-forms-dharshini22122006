@@ -78,6 +78,14 @@ function ProductDetailPage() {
   };
 
   const handleAddToCart = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      showToast("Please login to add items to cart!", "info");
+      navigate('/login');
+      return;
+    }
+    
     addToCart(product, 1);
     showToast(`🛒 "${product.name}" added to Cart!`, "success");
   };

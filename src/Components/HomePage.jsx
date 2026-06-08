@@ -8,14 +8,14 @@ import heroBg from "../Assets/Images/backgroundgirlhomepage.png";
 import womenImg from "../Assets/Images/women.png";
 import menImg from "../Assets/Images/men.png";
 import kidImg from "../Assets/Images/kid.png";
-import menImg1 from "../Assets/Images/men_6.jpeg";
 import "./HomePage.css";
-
-
-
+import localProducts from "../Data/products";
+import ProductCard from "./ProductCard";
 
 function HomePage() {
   const navigate = useNavigate();
+  // Filter 4 diverse featured products for the trending section
+  const trendingProducts = localProducts.filter(product => [8, 42, 43, 125].includes(product.id));
   return (
     <>
       {/* Navbar */}
@@ -70,28 +70,17 @@ function HomePage() {
       {/* Trending Products */}
       <div className="container">
         <h2 className="section-title">Trending Products</h2>
-        <div className="product-row">
-          <div className="product-card">
-            <img src={menImg1} alt="Mens casual shirt" className="product-img" />
-            <div className="product-body">
-              <h5 className="product-title">Mens casual shirt</h5>
-              <div className="price-row">
-                <span className="current-price">₹1299</span>
-                <span className="old-price">₹2599</span>
-                <span className="discount">50% OFF</span>
-              </div>
-              <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-                <Button variant="contained" sx={{ bgcolor: "#dc2626", "&:hover": { bgcolor: "#b91c1c" } }}>
-                  Add To Cart
-                </Button>
-                <Button variant="outlined" onClick={() => navigate('/products/1')}>
-                  Buy Now
-                </Button>
-              </Box>
-            </div>
-          </div>
-          {/* Additional product cards can be added similarly */}
-        </div>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)", md: "repeat(4, 1fr)" },
+            gap: "30px",
+          }}
+        >
+          {trendingProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </Box>
       </div>
 
       {/* Quick Access Buttons */}

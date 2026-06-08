@@ -26,12 +26,28 @@ function ProductCard({ product }) {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      showToast("Please login to add items to cart!", "info");
+      navigate('/login');
+      return;
+    }
+    
     addToCart(product, 1);
     showToast(`🛒 "${product.name}" added to Cart!`, "success");
   };
 
   const handleBuyNow = (e) => {
     e.stopPropagation();
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      showToast("Please login to proceed with purchase!", "info");
+      navigate('/login');
+      return;
+    }
+    
     addToCart(product, 1);
     showToast(`🚀 "${product.name}" purchased!`, "success");
     navigate('/cart');
@@ -115,4 +131,4 @@ function ProductCard({ product }) {
   );
 }
 
-export default ProductCard;
+export default ProductCard;
